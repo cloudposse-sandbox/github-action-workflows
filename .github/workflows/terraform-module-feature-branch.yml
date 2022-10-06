@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: reviewdog/action-golangci-lint@v2
-        if: ${{ inputs.golangEnabled == 'true' }}
+        if: ${{ inputs.golangEnabled == true }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           golangci_lint_flags: --timeout 5m
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: reviewdog/action-markdownlint@v0
-        if: ${{ inputs.markdownEnabled == 'true' }}
+        if: ${{ inputs.markdownEnabled == true }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: ${{ inputs.markdownReporter }}
@@ -70,10 +70,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: ${{ inputs.terraformEnabled == 'true' }}
+        if: ${{ inputs.terraformEnabled == true }}
 
       - id: set-matrix
-        if: ${{ inputs.terraformEnabled == 'true' }}
+        if: ${{ inputs.terraformEnabled == true }}
         run: |
           matrix=$(find ./ -name '*.tf' \
             -not -path '*/.terraform/*' \
@@ -94,18 +94,18 @@ jobs:
         tfdir: ${{ fromJson(needs.find-terraform-directories.outputs.tfdirs_matrix) }}
     steps:
       - uses: actions/checkout@v3
-        if: ${{ inputs.terraformEnabled == 'true' }}
+        if: ${{ inputs.terraformEnabled == true }}
 
       - uses: hashicorp/setup-terraform@v2
-        if: ${{ inputs.terraformEnabled == 'true' }}
+        if: ${{ inputs.terraformEnabled == true }}
 
       - run: terraform init
-        if: ${{ inputs.terraformEnabled == 'true' }}
+        if: ${{ inputs.terraformEnabled == true }}
         working-directory: ${{ matrix.tfdir }}
 
       - name: tflint
         uses: reviewdog/action-tflint@v1.17.0
-        if: ${{ inputs.terraformEnabled == 'true' }}
+        if: ${{ inputs.terraformEnabled == true }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: ${{ env.REPORTER }}
