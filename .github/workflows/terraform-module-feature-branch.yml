@@ -68,7 +68,7 @@ jobs:
           reporter: ${{ inputs.markdownReporter }}
           filter_mode: nofilter
           fail_on_error: true
-          
+
   # This job finds all directories that have terraform code in them and creates an JSON array of the paths so they can
   # be used as a matrix array in the next job.
   find-terraform-directories:
@@ -119,3 +119,10 @@ jobs:
           tflint_rulesets: aws
           tflint_init: true
           working_directory: ${{ matrix.tfdir }}
+
+  terratest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudposse/github-action-terratest@v1
+        with:
+          sourceDir: test/src
