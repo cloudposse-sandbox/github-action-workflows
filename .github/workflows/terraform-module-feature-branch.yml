@@ -132,7 +132,7 @@ jobs:
           working_directory: ${{ matrix.tfdir }}
 
       - name: fail if tflint returns error
-        if: ${{ steps.tflint.outputs.tflint-return-code != 1 }}
+        if: ${{ steps.tflint.outputs.tflint-return-code != 0 }}
         run: exit 1
 
   terratest:
