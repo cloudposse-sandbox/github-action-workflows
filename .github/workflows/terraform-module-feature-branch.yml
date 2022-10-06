@@ -6,42 +6,42 @@ on:
       golangEnabled:
         type: boolean
         description: "Whether to run golang linting checks."
-        required: true
+        required: false
         default: true
       golangReporter:
         type: string
         description: The reviewdog reporter to use for golang code.
-        required: true
+        required: false
         default: "github-pr-check"
       golangSourceDir:
         type: string
         description: The directory containing the source code to test
-        required: true
+        required: false
         default: "."
       markdownEnabled:
         type: boolean
         description: "Whether to run markdown linting checks."
-        required: true
+        required: false
         default: true
       markdownReporter:
         type: string
         description: The reviewdog reporter to use for markdown code.
-        required: true
+        required: false
         default: "github-pr-check"
       terraformEnabled:
         type: boolean
         description: "Whether to run terraform linting checks."
-        required: true
+        required: false
         default: true
       terraform_glob:
         type: string
         description: "Terraform files to check"
-        required: true
+        required: false
         default: "*.tf"
       terraformReporter:
         type: string
         description: The reviewdog reporter to use for terraform code.
-        required: true
+        required: false
         default: "github-pr-check"
 
 jobs:
