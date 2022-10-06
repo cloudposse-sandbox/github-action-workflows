@@ -35,15 +35,15 @@ on:
         default: "true"
       terraform_glob:
         type: string
-        description: 'Terraform files to check'
+        description: "Terraform files to check"
         required: true
-        default: *.tf
+        default: "*.tf"
       terraformReporter:
         type: string
         description: The reviewdog reporter to use for terraform code.
         required: true
         default: "github-pr-check"
-  
+
 jobs:
   golint:
     runs-on: ubuntu-latest
