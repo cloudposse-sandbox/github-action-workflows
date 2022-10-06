@@ -81,7 +81,7 @@ jobs:
       - id: set-matrix
         if: ${{ inputs.terraformEnabled == true }}
         run: |
-          matrix=$(find ./ -name '*.tf' \
+          matrix=$(find . -name '*.tf' \
             -not -path '*/.terraform/*' \
             -exec dirname {} \; \
             | sort \
