@@ -126,16 +126,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: ${{ inputs.terraformReporter }}
           filter_mode: nofilter
-          fail_on_error: false
+          fail_on_error: true
           tflint_rulesets: ${{ env.TFLINT_PLUGINS }}
           tflint_init: true
           working_directory: ${{ matrix.tfdir }}
-
-      - name: fail job if tflint returns error
-        if: ${{ steps.tflint.outputs.reviewdog-return-code != 0 }}
-        run: |
-          echo "tflint found errors"
-          exit 1
 
   terratest:
     runs-on: ubuntu-latest
