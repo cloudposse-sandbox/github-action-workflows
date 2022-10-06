@@ -123,6 +123,6 @@ jobs:
   terratest:
     runs-on: ubuntu-latest
     steps:
-      - uses: cloudposse/github-action-terratest@v1
+      - uses: cloudposse/github-action-terratest@1
         with:
           sourceDir: test/src
