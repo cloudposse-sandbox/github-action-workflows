@@ -33,11 +33,6 @@ on:
         description: "Whether to run terraform linting checks."
         required: false
         default: true
-      terraform_glob:
-        type: string
-        description: "Terraform files to check"
-        required: false
-        default: "*.tf"
       terraformReporter:
         type: string
         description: The reviewdog reporter to use for terraform code.
@@ -80,7 +75,7 @@ jobs:
       - id: set-matrix
         if: ${{ inputs.terraformEnabled == 'true' }}
         run: |
-          matrix=$(find ./ -name '{{ inputs.terraform_glob }}' \
+          matrix=$(find ./ -name '*.tf' \
             -not -path '*/.terraform/*' \
             -exec dirname {} \; \
             | sort \
