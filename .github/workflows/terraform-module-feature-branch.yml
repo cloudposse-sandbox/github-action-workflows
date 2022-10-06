@@ -97,6 +97,9 @@ jobs:
     strategy:
       matrix:
         tfdir: ${{ fromJson(needs.find-terraform-directories.outputs.tfdirs_matrix) }}
+    env:
+      TFLINT_PLUGIN_DIR: ${{ github.workspace }}/.tflint.d/plugins
+      TFLINT_PLUGINS: aws,azure
     steps:
       - uses: actions/checkout@v3
         if: ${{ inputs.terraformEnabled == true }}
@@ -108,6 +111,13 @@ jobs:
         if: ${{ inputs.terraformEnabled == true }}
         working-directory: ${{ matrix.tfdir }}
 
+      - name: cache tflint plugins
+        id: cache-plugins
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.TFLINT_PLUGIN_DIR }}
+          key: tflint-plugins-${{ env.TFLINT_PLUGINS }}
+
       - name: tflint
         uses: reviewdog/action-tflint@v1.17.0
         if: ${{ inputs.terraformEnabled == true }}
@@ -116,7 +126,7 @@ jobs:
           reporter: ${{ inputs.terraformReporter }}
           filter_mode: nofilter
           fail_on_error: true
-          tflint_rulesets: aws
+          tflint_rulesets: ${{ env.TFLINT_PLUGINS }}
           tflint_init: true
           working_directory: ${{ matrix.tfdir }}
 
