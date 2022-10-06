@@ -131,9 +131,11 @@ jobs:
           tflint_init: true
           working_directory: ${{ matrix.tfdir }}
 
-      - name: fail if tflint returns error
-        if: ${{ steps.tflint.outputs.tflint-return-code != 0 }}
-        run: exit 1
+      - name: fail job if tflint returns error
+        if: ${{ steps.tflint.outputs.reviewdog-return-code != 0 }}
+        run: |
+          echo "tflint found errors"
+          exit 1
 
   terratest:
     runs-on: ubuntu-latest
