@@ -51,7 +51,7 @@ jobs:
       - uses: reviewdog/action-golangci-lint@v2
         if: ${{ inputs.golangEnabled == 'true' }}
         with:
-          github_token: ${{ secretsgithubToken }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           golangci_lint_flags: --timeout 5m
           reporter: ${{ inputs.golangReporter }}
           workdir: ${{ inputs.golangSourceDir }}
@@ -64,7 +64,7 @@ jobs:
       - uses: reviewdog/action-markdownlint@v0
         if: ${{ inputs.markdownEnabled == 'true' }}
         with:
-          github_token: ${{ inputs.githubToken }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: ${{ inputs.markdownReporter }}
           filter_mode: nofilter
           fail_on_error: true
