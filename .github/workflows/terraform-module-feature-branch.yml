@@ -7,7 +7,7 @@ on:
         type: boolean
         description: "Whether to run golang linting checks."
         required: true
-        default: "true"
+        default: true
       golangReporter:
         type: string
         description: The reviewdog reporter to use for golang code.
@@ -22,7 +22,7 @@ on:
         type: boolean
         description: "Whether to run markdown linting checks."
         required: true
-        default: "true"
+        default: true
       markdownReporter:
         type: string
         description: The reviewdog reporter to use for markdown code.
@@ -32,7 +32,7 @@ on:
         type: boolean
         description: "Whether to run terraform linting checks."
         required: true
-        default: "true"
+        default: true
       terraform_glob:
         type: string
         description: "Terraform files to check"
