@@ -99,7 +99,7 @@ jobs:
         tfdir: ${{ fromJson(needs.find-terraform-directories.outputs.tfdirs_matrix) }}
     env:
       TFLINT_PLUGIN_DIR: ${{ github.workspace }}/.tflint.d/plugins
-      TFLINT_PLUGINS: aws azure
+      TFLINT_PLUGINS: aws azurerm
       TFLINT_CACHE_VER: 1 # Increment this to force a cache refresh
     steps:
       - uses: actions/checkout@v3
