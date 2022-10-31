@@ -188,7 +188,7 @@ jobs:
           build_number: ${{ github.sha }}
           deploy_path:
             ${{ inputs.artifactoryNamespace }}/${{ inputs.moduleName }}/${{ inputs.moduleProvider }}/${{
-            input.artifactVersion }}.zip
+            inputs.artifactVersion }}.zip
           artifact: ${{ github.sha }}.zip
 # env:
 #   ARTIFACTORY_REPO: "https://cloudposse.jfrog.io/artifactory/tfmodules"
