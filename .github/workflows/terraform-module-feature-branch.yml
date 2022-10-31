@@ -172,7 +172,7 @@ jobs:
 
   upload:
     runs-on: ubuntu-latest
-    needs: [golint, markdownlint, tflint, terratest]
+    #needs: [golint, markdownlint, tflint, terratest]
     steps:
       - name: download zipfile of current sha
         run: |
