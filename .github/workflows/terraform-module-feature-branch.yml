@@ -107,7 +107,7 @@ jobs:
             | sort \
             | uniq \
             | jq --raw-input --slurp 'split("\n")| map(select(. != ""))')
-          echo ::set-output name=matrix::$(echo $matrix)
+          echo "name=matrix::$(echo $matrix)" >> $GITHUB_OUTPUT
     outputs:
       tfdirs_matrix: ${{ steps.set-matrix.outputs.matrix }}
 
@@ -179,7 +179,7 @@ jobs:
           curl -L -o ${{ github.sha }}.zip https://github.com/${GITHUB_REPOSITORY#*/}/archive/${{ github.sha }}.zip
 
       - name: Upload artifact to artifactory
-        uses: cloudposse-sandbox/vg-artifactory-upload@main
+        uses: cloudposse-sandbox/vg-artifactory-upload@master
         with:
           artifactory_url: ${{ inputs.artifactoryUrl }}
           artifactory_user: ${{ secrets.JFROG_USER_NAME}}
