@@ -172,7 +172,7 @@ jobs:
 
   upload:
     runs-on: ubuntu-latest
-    #needs: [golint, markdownlint, tflint, terratest]
+    needs: [golint, markdownlint, tflint, terratest]
     steps:
       - name: download zipfile of current sha
         run: |
@@ -190,23 +190,3 @@ jobs:
             ${{ inputs.artifactoryNamespace }}/${{ inputs.moduleName }}/${{ inputs.moduleProvider }}/${{
             inputs.artifactVersion }}.zip
           artifact: ${{ github.sha }}.zip
-# env:
-#   ARTIFACTORY_REPO: "https://cloudposse.jfrog.io/artifactory/tfmodules"
-#   MODULE_NAMESPACE: "vanguard"
-#   MODULE_NAME: "terraform-example-module"
-#   PROVIDER_NAME: "example"
-#   VERSION: ${{ github.sha }}
-
-# jobs:
-#   publish-terraform-module:
-#     name: publish terraform module to artifactory
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: download zipfile of current sha
-#         run: |
-#           curl -L -o ${{ github.sha }}.zip https://github.com/${GITHUB_REPOSITORY#*/}/archive/${{ github.sha }}.zip
-#       - name: upload to artifactory
-#         run: |
-#           curl -u"${{ secrets.JFROG_USER_NAME}}:${{ secrets.JFROG_TOKEN}}" \
-#             -XPUT "${{ env.ARTIFACTORY_REPO}}/${{ env.MODULE_NAMESPACCE}}/${{ env.MODULE_NAME}}/${{ env.PROVIDER_NAME}}/${{ env.VERSION}}.zip" \
-#             -T ${{ env.VERSION}}.zip
