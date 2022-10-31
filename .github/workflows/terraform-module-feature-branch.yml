@@ -2,48 +2,63 @@ name: Terraform Module Feature Branch
 
 on:
   workflow_call:
-    inputs:
-      golangReporter:
-        type: string
-        description: The reviewdog reporter to use for golang code.
-        required: false
-        default: "github-pr-check"
 
-      golangEnabled:
-        type: boolean
-        description: "Whether to run golang linting checks."
-        required: false
-        default: true
-      golangReporter:
-        type: string
-        description: The reviewdog reporter to use for golang code.
-        required: false
-        default: "github-pr-check"
-      golangSourceDir:
-        type: string
-        description: The directory containing the source code to test
-        required: false
-        default: "."
-      markdownEnabled:
-        type: boolean
-        description: "Whether to run markdown linting checks."
-        required: false
-        default: true
-      markdownReporter:
-        type: string
-        description: The reviewdog reporter to use for markdown code.
-        required: false
-        default: "github-pr-check"
-      terraformEnabled:
-        type: boolean
-        description: "Whether to run terraform linting checks."
-        required: false
-        default: true
-      terraformReporter:
-        type: string
-        description: The reviewdog reporter to use for terraform code.
-        required: false
-        default: "github-pr-check"
+inputs:
+  artifactoryUrl:
+    type: string
+    description: The URL of the artifactory story.
+    required: false
+    default: https://artifactory-dev.opse.c1.vanguard.com/artifactory
+  artifactoryUsername:
+    type: string
+    description: The user for artifactory.
+    required: false
+    default: secrets.JFROG_USER_NAME
+  artifactoryKey:
+    type: string
+    description: The key/token for the artifactory user.
+    required: false
+    default: secrets.JFROG_TOKEN
+  artifactoryRepo:
+    type: string
+    description: The URL of the artifactory story.
+    required: false
+    default: https://artifactory-dev.opse.c1.vanguard.com/artifactory
+  golangReporter:
+    type: string
+    description: The reviewdog reporter to use for golang code.
+    required: false
+    default: "github-pr-check"
+  golangEnabled:
+    type: boolean
+    description: "Whether to run golang linting checks."
+    required: false
+    default: true
+  golangSourceDir:
+    type: string
+    description: The directory containing the source code to test
+    required: false
+    default: "."
+  markdownEnabled:
+    type: boolean
+    description: "Whether to run markdown linting checks."
+    required: false
+    default: true
+  markdownReporter:
+    type: string
+    description: The reviewdog reporter to use for markdown code.
+    required: false
+    default: "github-pr-check"
+  terraformEnabled:
+    type: boolean
+    description: "Whether to run terraform linting checks."
+    required: false
+    default: true
+  terraformReporter:
+    type: string
+    description: The reviewdog reporter to use for terraform code.
+    required: false
+    default: "github-pr-check"
 
 jobs:
   golint:
@@ -172,9 +187,10 @@ jobs:
           artifactory_key: ${{ secrets.JFROG_TOKEN}}
           repository: ${{ inputs.artifactoryRepo }}
           build_number: ${{ github.sha }}
-          deploy_path: ${{ inputs.artifactoryNamespace }}/${{ inputs.moduleName }}/${{ inputs.moduleProvider }}/${{ input.artifactVersion }}.zip
-       
-
+          deploy_path:
+            ${{ inputs.artifactoryNamespace }}/${{ inputs.moduleName }}/${{ inputs.moduleProvider }}/${{
+            input.artifactVersion }}.zip
+          artifact: ${{ github.sha }}.zip
 # env:
 #   ARTIFACTORY_REPO: "https://cloudposse.jfrog.io/artifactory/tfmodules"
 #   MODULE_NAMESPACE: "vanguard"
