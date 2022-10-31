@@ -58,6 +58,21 @@ on:
         description: The reviewdog reporter to use for terraform code.
         required: false
         default: "github-pr-check"
+      yamlReporter:
+        type: string
+        description: The reviewdog reporter to use for yaml code.
+        required: false
+        default: "github-pr-check"
+      yamlEnabled:
+        type: boolean
+        description: "Whether to run yaml linting checks."
+        required: false
+        default: true
+      yamlSourceDir:
+        type: string
+        description: The directory containing the source code to test
+        required: false
+        default: "."
 
 jobs:
   golint:
@@ -73,6 +88,21 @@ jobs:
           golangci_lint_flags: --timeout 5m
           reporter: ${{ inputs.golangReporter }}
           workdir: ${{ inputs.golangSourceDir }}
+          fail_on_error: true
+          filter_mode: nofilter
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        if: ${{ inputs.yamlEnabled == true }}
+
+      - uses: reviewdog/action-yamllint@v1
+        if: ${{ inputs.yamlEnabled == true }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: ${{ inputs.yamlReporter }}
+          yamllint_flags: ${{ inputs.yamlSourceDir }}
           fail_on_error: true
           filter_mode: nofilter
 
