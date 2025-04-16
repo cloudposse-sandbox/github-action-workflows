@@ -2,9 +2,9 @@ name: Cloud Posse Sandbox Dummy CI
 
 on:
   push:
-    branches: [ $default-branch ] # TODO: validate that this works outside of workflow-templates
+    branches: [ $default-branch ]
   pull_request:
-    branches: [ $default-branch ] # TODO: ditto
+    branches: [ $default-branch ]
 
 jobs:
   build:
