@@ -1,0 +1,17 @@
+name: Cloud Posse Sandbox Dummy CI
+
+on:
+  push:
+    branches: [ $default-branch ] # TODO: validate that this works outside of workflow-templates
+  pull_request:
+    branches: [ $default-branch ] # TODO: ditto
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo Hello from the Cloud Posse Sandbox organization
